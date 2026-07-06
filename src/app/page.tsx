@@ -379,9 +379,15 @@ export default function Home() {
               <div className="absolute top-4 left-4 bg-heritage-gold text-[#0a0f1a] text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1.5 rounded">
                 ★ Featured Honoree
               </div>
-              <div className="absolute bottom-0 inset-x-0 p-5">
+              <div className="absolute bottom-0 inset-x-0 p-5 space-y-2">
                 <div className="font-serif font-black text-2xl">Michael Chen</div>
                 <div className="text-sm text-slate-300">U.S. Army Veteran · 28 Years of Service · Seattle, WA</div>
+                <div className="inline-flex items-center gap-2 bg-black/60 border border-heritage-gold/60 rounded-full px-3 py-1.5">
+                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-heritage-gold" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 17l4.5-1 9-9a2.1 2.1 0 00-3-3l-9 9-1 4.5z" /><path d="M13 6l3 3M4 21h16" />
+                  </svg>
+                  <span className="text-xs font-bold text-heritage-gold tracking-wide">1,214 CO-SIGNS · LEGEND</span>
+                </div>
               </div>
             </div>
             <div className="space-y-6">
@@ -395,6 +401,31 @@ export default function Home() {
                 OfficialWho, the world hears about it.
               </p>
               <ShareBar text="Michael Chen — U.S. Army Veteran, 28 years of service — is this week's Featured Honoree on OfficialWho. Every Story. Every Legacy." label="Share This Honor" />
+
+              {/* Co-sign ladder */}
+              <div className="border border-white/10 rounded-lg p-5 bg-white/[0.02] space-y-3">
+                <div className="text-[10px] tracking-[0.3em] text-slate-400 uppercase font-bold">
+                  The Co-Sign Ladder — every co-sign is a person vouching for a life
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {[
+                    { n: '10+', label: 'Co-Signed', color: '#3A86FF' },
+                    { n: '50+', label: 'Community Honored', color: '#C0C6CF' },
+                    { n: '100+', label: 'Century Honoree', color: '#FFB703' },
+                    { n: '1,000+', label: 'Legend', color: '#E63946' },
+                  ].map((tier) => (
+                    <div key={tier.label} className="text-center border border-white/10 rounded-md py-2.5 px-1.5" style={{ borderColor: `${tier.color}55` }}>
+                      <div className="font-serif font-black text-lg leading-none" style={{ color: tier.color }}>{tier.n}</div>
+                      <div className="text-[9px] font-bold uppercase tracking-wide text-slate-300 mt-1 leading-tight">{tier.label}</div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Co-signing is free, takes one tap, and instantly makes you a 1° connection.
+                  Verification can&apos;t be bought — but a legacy can be witnessed.
+                </p>
+              </div>
+
               <p className="text-sm text-slate-400">
                 Know someone who belongs here?{' '}
                 <Link href="/generate" className="text-courage-red font-semibold hover:underline underline-offset-4">

@@ -61,6 +61,26 @@ Any TWO of:
 
 The honoree page is live after step 2. Everything else raises the badge, never gates the page.
 
+## Co-Sign Ladder — Social Proof (separate from truth)
+
+Community weight, distinct from identity verification (see `PLATFORM_VISION.md` for the
+full mechanic). One-click "I witness this legacy" + relationship tag, free forever:
+
+- **10+ co-signs → CO-SIGNED** (blue seal)
+- **50+ → COMMUNITY HONORED** (silver)
+- **100+ → CENTURY HONOREE** (gold, auto-nominated for Featured)
+- **1,000+ → LEGEND** (Hall of Legends)
+
+Rules:
+- Co-signs require a free verified-email account (this is the friends-and-family
+  conversion engine — every co-sign is an acquisition + instant Honor Number 1°)
+- Scale badges NEVER substitute for truth badges — a profile can be LEGEND and still
+  "Identity Unverified"; the UI keeps the two families visually distinct (seal vs check)
+- 2+ co-signs from *verified* members of the honoree's own org can satisfy the peer-
+  attestation leg of Tier 2 — that's the only bridge between the ladders
+- Anti-fraud: velocity caps, device/IP clustering, reciprocal-ring detection; unverified
+  accounts' co-signs count 0
+
 ## Anti-Marquis Guardrails
 
 - Verification status can NEVER be influenced by payment — enforced in code
