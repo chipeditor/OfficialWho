@@ -87,16 +87,32 @@ export const mockSchools = [
 ];
 
 export const mockCategories = [
+  // Service & civic
   { id: 'high-school', label: 'High School', color: '#3248A8' },
   { id: 'military', label: 'Military', color: '#2E7D32' },
   { id: 'police', label: 'Police', color: '#0D47A1' },
   { id: 'fire', label: 'Fire', color: '#E53946' },
   { id: 'teacher', label: 'Teacher', color: '#1976D2' },
-  { id: 'athlete', label: 'Athlete', color: '#F77F00' },
-  { id: 'musician', label: 'Musician', color: '#7B2CBF' },
-  { id: 'dancer', label: 'Dancer', color: '#C2185B' },
   { id: 'ems', label: 'EMS', color: '#00838F' },
   { id: 'nurse', label: 'Nurse', color: '#E53935' },
+  { id: 'skilled-trades', label: 'Skilled Trades', color: '#B5651D' },
+  { id: 'community-leaders', label: 'Community Leaders', color: '#5E60CE' },
+  // Culture & music
+  { id: 'hip-hop', label: 'Hip Hop', color: '#F72585' },
+  { id: 'house', label: 'House', color: '#00B4A0' },
+  { id: 'gospel', label: 'Gospel', color: '#FFB703' },
+  { id: 'dance', label: 'Dance', color: '#C2185B' },
+  { id: 'musician', label: 'Musician', color: '#7B2CBF' },
+  { id: 'djs-producers', label: 'DJs & Producers', color: '#4CC9F0' },
+  { id: 'choirs', label: 'Choirs & Praise Teams', color: '#E9A820' },
+  { id: 'steppers', label: 'Steppers & Line Dance', color: '#FF6B9D' },
+  { id: 'spoken-word', label: 'Spoken Word & Poets', color: '#9D4EDD' },
+  // Achievement & community
+  { id: 'athlete', label: 'Athlete', color: '#F77F00' },
+  { id: 'coaches', label: 'Coaches & Mentors', color: '#2A9D8F' },
+  { id: 'greek-life', label: 'Greek Life', color: '#C1121F' },
+  { id: 'faith-ministry', label: 'Faith & Ministry', color: '#D4A017' },
+  { id: 'first-gen-grads', label: 'First-Gen Graduates', color: '#3A86FF' },
 ];
 
 export const mockPosterStyles = [

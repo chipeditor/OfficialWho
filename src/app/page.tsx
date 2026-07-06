@@ -71,6 +71,13 @@ const CATEGORY_CHIPS = [
   { label: 'Artists & Creatives', color: '#8338EC', icon: <><path d="M9 17V6l10-2v11" /><circle cx="6.8" cy="17.2" r="2.4" /><circle cx="16.8" cy="15.2" r="2.4" /></> },
   { label: 'Healthcare Professionals', color: '#D81860', icon: <><path d="M12 20s-7-4.5-9-9c-1.2-2.8.7-6 3.8-6 1.9 0 3.4 1 4.2 2.5C11.8 6 13.3 5 15.2 5c3.1 0 5 3.2 3.8 6-2 4.5-7 9-7 9z" /><path d="M6 12h3.5l1.5-2.5 2 4 1.5-2.5H18" /></> },
   { label: 'Entrepreneurs & Leaders', color: '#F77F00', icon: <><rect x="3.5" y="8" width="17" height="11" rx="1.5" /><path d="M9 8V5.8C9 5 9.7 4.5 10.4 4.5h3.2c.7 0 1.4.5 1.4 1.3V8M3.5 13h17" /></> },
+  { label: 'Hip Hop', color: '#F72585', icon: <><rect x="9.5" y="3" width="5" height="10" rx="2.5" /><path d="M6.5 11a5.5 5.5 0 0011 0M12 16.5V20m-3 0h6" /></> },
+  { label: 'House', color: '#00B4A0', icon: <><circle cx="12" cy="12" r="8.5" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="1" /></> },
+  { label: 'Dance', color: '#C2185B', icon: <><circle cx="13.5" cy="4.8" r="1.8" /><path d="M9 8.5l4.5 1 3.5-2M13 9.5l-1 4.5-3.5 5M12.5 13.5l3.5 2 1 4" /></> },
+  { label: 'Gospel', color: '#FFB703', icon: <><path d="M12 5.5C10.5 4 8.3 3.5 5.5 3.5c-1 0-2 .1-3 .4v14.6c1-.3 2-.4 3-.4 2.8 0 5 .5 6.5 2 1.5-1.5 3.7-2 6.5-2 1 0 2 .1 3 .4V3.9c-1-.3-2-.4-3-.4-2.8 0-5 .5-6.5 2z" /><path d="M12 5.5v14.6M7.5 8.5v3m-1.5-1.5h3" /></> },
+  { label: 'DJs & Producers', color: '#4CC9F0', icon: <><path d="M4 13.5v-2a8 8 0 0116 0v2" /><rect x="3" y="13" width="4" height="6.5" rx="1.5" /><rect x="17" y="13" width="4" height="6.5" rx="1.5" /></> },
+  { label: 'Coaches & Mentors', color: '#2A9D8F', icon: <><circle cx="8" cy="14.5" r="4.5" /><path d="M8 12.5v2l1.5 1M11.5 11l8-6.5 1.5 2-6.5 5.5" /></> },
+  { label: 'Greek Life', color: '#C1121F', icon: <><path d="M3.5 8L12 3.5 20.5 8h-17z" /><path d="M5.5 8v9M9.8 8v9M14.2 8v9M18.5 8v9M4 17h16M3 20h18" /></> },
 ]
 
 function StrokeIcon({ children, className, strokeWidth = 1.5 }: { children: React.ReactNode; className?: string; strokeWidth?: number }) {

@@ -14,6 +14,41 @@
 
 ---
 
+## Revenue Principles (The Anti-Marquis Doctrine)
+
+> **Charge for the honor, never the truth.**
+
+1. **Verification is free, always.** No paid verification, no paid expediting, no
+   verification-adjacent upsell. Enforced in code: the verification service has zero
+   dependency on entitlements/payments. See `VERIFICATION_MODEL.md`.
+2. **We charge for craft, not status**: the submission (publishing a tribute), the
+   honoree hero image, and physical prints.
+3. **Transparent pricing on the page. No sales calls. Ever.**
+
+### What's Paid vs. Free
+
+| | Free | Paid |
+|---|---|---|
+| Draft & preview a tribute (watermarked) | ✅ | |
+| Verification (all tiers, forever) | ✅ | |
+| Browsing, stories, tributes, messages | ✅ | |
+| **Publish a submission** (honoree page + 2 digital tribute posters) | | **$19 one-time** |
+| **Honoree Hero Image** (cinematic AI portrait — the design-comp panel look; profile hero + poster backgrounds) | | **$29 one-time** |
+| Submission + Hero bundle | | **$39** |
+| Prints (poster/framed/canvas/metal) | | **$29–$129** (see On-Demand Printing) |
+| Membership tiers (multiple honorees, member print pricing) | | $0.99 / $5.99 (existing tiers) |
+
+**The funnel**: Submit free → see watermarked preview (emotional peak) → pay $19–39 to
+publish → print upsell ("Bring the honor home") → membership for families/orgs with
+multiple honorees.
+
+**Why the hero image is the premium anchor**: the cinematic honoree portrait (per the
+design comps' diagonal panels) is the single most shareable, display-worthy artifact —
+high perceived value, near-zero marginal cost, and it makes every downstream print
+worth more.
+
+---
+
 ## Current Architecture (Mock Mode)
 
 ### Layer 1: Entitlements Service (`src/services/entitlements.ts`)
