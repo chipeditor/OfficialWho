@@ -22,8 +22,11 @@ function HonorNumber() {
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto text-center space-y-8">
           <div className="text-[11px] tracking-[0.4em] text-heritage-gold uppercase font-bold">Bragging Rights, Quantified</div>
-          <h2 className="font-serif font-black text-4xl md:text-5xl">
-            What&apos;s Your <span className="text-courage-red">Honor Number</span>?
+          <h2 className="font-serif font-black text-[2.15rem] sm:text-4xl md:text-5xl text-balance">
+            What&apos;s Your{' '}
+            <span className="whitespace-nowrap">
+              <span className="text-courage-red">Honor Number</span>?
+            </span>
           </h2>
           <p className="text-slate-300 text-lg leading-relaxed">
             How many degrees of separation stand between you and a verified honoree?
@@ -275,8 +278,8 @@ export default function Home() {
             </Link>
             <div className="space-y-6">
               <div className="text-[11px] tracking-[0.4em] text-heritage-gold uppercase font-bold">This Week on OfficialWho</div>
-              <h2 className="font-serif font-black text-4xl md:text-5xl leading-tight">
-                Being featured here is <span className="text-courage-red">earned.</span>
+              <h2 className="font-serif font-black text-4xl md:text-5xl leading-tight text-balance">
+                Being featured here is <span className="text-courage-red whitespace-nowrap">earned.</span>
               </h2>
               <p className="text-slate-300 text-lg leading-relaxed">
                 One honoree. Every week. Chosen from verified stories around the world and
@@ -287,8 +290,8 @@ export default function Home() {
 
               {/* Co-sign ladder */}
               <div className="border border-white/10 rounded-lg p-5 bg-white/[0.02] space-y-3">
-                <div className="text-[10px] tracking-[0.3em] text-slate-400 uppercase font-bold">
-                  The Co-Sign Ladder — every co-sign is a person vouching for a life
+                <div className="text-[10px] tracking-[0.3em] text-slate-400 uppercase font-bold text-balance">
+                  The Co&#8209;Sign Ladder — every co&#8209;sign is a person vouching for a life
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {[
@@ -358,7 +361,7 @@ export default function Home() {
       {/* Nine premium styles — the tribute product */}
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-12">
-          <h2 className="font-sans font-black text-3xl">Nine Premium Tribute Styles</h2>
+          <h2 className="font-sans font-black text-3xl text-balance">Nine Premium <span className="whitespace-nowrap">Tribute Styles</span></h2>
           <p className="text-slate-400 mt-3">Every honoree deserves a poster worth framing. 300 DPI, print-ready.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">

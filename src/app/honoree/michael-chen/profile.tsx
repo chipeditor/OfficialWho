@@ -92,7 +92,9 @@ export default function ChenProfile() {
               </div>
               <div>
                 <h1 className="font-serif font-black text-4xl md:text-6xl leading-tight">Michael Chen</h1>
-                <p className="text-lg text-slate-300 mt-1">U.S. Army Veteran, Master Sergeant (Ret.) · Seattle, WA</p>
+                <p className="text-lg text-slate-300 mt-1 text-balance">
+                  U.S. Army Veteran, <span className="whitespace-nowrap">Master Sergeant (Ret.)</span> · <span className="whitespace-nowrap">Seattle, WA</span>
+                </p>
               </div>
               {/* Stat chips */}
               <div className="flex flex-wrap gap-3 justify-center md:justify-start">
