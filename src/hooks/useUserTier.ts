@@ -6,7 +6,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { UserEntitlements, UserTier } from '@/services/entitlements'
+import { UserEntitlements } from '@/services/entitlements'
 import { logger } from '@/utils/logger'
 
 /**

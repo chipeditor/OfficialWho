@@ -73,7 +73,7 @@ export async function tierWatermarkMiddleware(userId: string): Promise<boolean> 
  * Middleware to enforce style restrictions
  */
 export async function tierStyleRestrictionsMiddleware(
-  userId: string,
+  _userId: string,
   style: string
 ): Promise<{ allowed: boolean; reason?: string }> {
   if (!entitlementsService.isStyleAllowed('free', style)) {
