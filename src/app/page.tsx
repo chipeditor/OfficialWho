@@ -2,378 +2,319 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
-import { mockCategories, mockPosterStyles, mockUserProfiles } from '@/lib/mock-data'
+import { mockPosterStyles } from '@/lib/mock-data'
 
-/* Brand mark — the real logo asset (red frame + profile bust).
-   Soft light shadow keeps the navy silhouette readable on dark surfaces. */
-function LogoMark({ className }: { className?: string }) {
+/* Brand mark — the real logo asset on a white chip, per the design comps */
+function LogoChip({ className }: { className?: string }) {
   return (
-    <Image
-      src="/brand/logo-mark.png"
-      alt="OfficialWho"
-      width={822}
-      height={1262}
-      className={`shrink-0 w-auto [filter:drop-shadow(0_0_5px_rgba(255,255,255,0.28))] ${className ?? ''}`}
-      priority
-    />
-  )
-}
-
-/* Section heading: gold kicker, Bebas title, gold rule */
-function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
-  return (
-    <div className="text-center mb-14">
-      <div className="text-[11px] tracking-[0.4em] text-heritage-gold uppercase mb-3">{kicker}</div>
-      <h2 className="font-display text-4xl md:text-5xl text-white uppercase tracking-wide">{title}</h2>
-      <div className="mt-5 mx-auto w-24 h-px bg-gradient-to-r from-transparent via-heritage-gold/70 to-transparent" />
+    <div className={`bg-white rounded-md p-1 flex items-center justify-center shrink-0 ${className ?? ''}`}>
+      <Image src="/brand/logo-mark.png" alt="OfficialWho" width={822} height={1262} className="h-full w-auto" priority />
     </div>
   )
 }
 
-export default function Home() {
-  const [apiStatus, setApiStatus] = useState<'checking' | 'healthy' | 'error'>('checking')
+const HERO_PANELS = [
+  { label: 'Law Enforcement', img: '/brand/heroes/law-enforcement.jpg' },
+  { label: 'Firefighters & EMS', img: '/brand/heroes/firefighters-ems.jpg' },
+  { label: 'Military Veterans', img: '/brand/heroes/military-veterans.jpg' },
+  { label: 'Educators & Alumni', img: '/brand/heroes/educators-alumni.jpg' },
+  { label: 'Artists & Creatives', img: '/brand/heroes/artists-creatives.jpg' },
+  { label: 'Healthcare Professionals', img: '/brand/heroes/healthcare.jpg' },
+  { label: 'Entrepreneurs & Leaders', img: '/brand/heroes/entrepreneurs.jpg' },
+]
 
-  useEffect(() => {
-    fetch('/api/health')
-      .then((res) => res.json())
-      .then(() => setApiStatus('healthy'))
-      .catch(() => setApiStatus('error'))
-  }, [])
+const FEATURED_STORIES = [
+  { name: 'U.S. Army', line: '12 Years of Service', img: '/brand/heroes/military-veterans.jpg' },
+  { name: 'Firefighter', line: 'Bravery in Action', img: '/brand/heroes/firefighters-ems.jpg' },
+  { name: 'High School Alumni', line: 'Class of 2005', img: '/brand/heroes/educators-alumni.jpg' },
+  { name: 'Musician', line: 'Inspiring Generations', img: '/brand/heroes/artists-creatives.jpg' },
+  { name: 'Nurse', line: 'Healing with Heart', img: '/brand/heroes/healthcare.jpg' },
+  { name: 'Entrepreneur', line: 'Building Futures', img: '/brand/heroes/entrepreneurs.jpg' },
+]
 
+const STATS = [
+  { n: '125K+', label: 'Verified Profiles', icon: <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9c.7-3.6 3.4-6 7-6s6.3 2.4 7 6" /> },
+  { n: '64K+', label: 'Stories Shared', icon: <path d="M4 5h16v11H8l-4 4V5zm4 4h8m-8 3.5h5" /> },
+  { n: '32', label: 'Categories', icon: <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /> },
+  { n: '195', label: 'Countries', icon: <><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c2.6 2.3 4 5.1 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.1-4-8.5s1.4-6.2 4-8.5z" /></> },
+  { n: 'Millions', label: 'Inspired', icon: <path d="M12 20s-7-4.5-9-9c-1.2-2.8.7-6 3.8-6 1.9 0 3.4 1 4.2 2.5H12C12.8 6 14.3 5 16.2 5c3.1 0 5 3.2 3.8 6-2 4.5-8 9-8 9z" /> },
+]
+
+const VALUES = [
+  {
+    title: 'Verified',
+    desc: 'Authentic stories and identities.',
+    icon: <><path d="M12 3l7.5 2.8v6.1c0 4.4-3 8.1-7.5 9.6-4.5-1.5-7.5-5.2-7.5-9.6V5.8L12 3z" /><path d="M9 12l2.2 2.2L15.5 10" /></>,
+  },
+  {
+    title: 'Celebrated',
+    desc: 'Honoring impact and achievement.',
+    icon: <><circle cx="12" cy="9" r="5.5" /><path d="M12 6.5l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3.9-1.8zM9 13.8L7.5 20l4.5-2.4L16.5 20 15 13.8" /></>,
+  },
+  {
+    title: 'Remembered',
+    desc: 'Preserving legacies for generations.',
+    icon: <path d="M12 3c2.5 2.6 4 4.9 4 7.4 0 1.5-.6 2.8-1.6 3.7.1-1.6-.5-3-2.4-4.4-.2 2.4-1 3.3-2 4.6-.8 1-1.3 2-1.3 3.1A4.6 4.6 0 0112 21a5.9 5.9 0 006-6c0-4-2.8-8.4-6-12z" />,
+  },
+  {
+    title: 'Connected',
+    desc: 'Uniting communities through shared stories.',
+    icon: <><circle cx="9" cy="9" r="2.8" /><circle cx="16.5" cy="10" r="2.2" /><path d="M3.8 19c.6-3 2.6-4.8 5.2-4.8s4.6 1.8 5.2 4.8M14.5 14.6c2.2.3 3.9 1.8 4.5 4.4" /></>,
+  },
+]
+
+const CATEGORY_CHIPS = [
+  { label: 'Law Enforcement', color: '#3A86FF', icon: <><path d="M12 3l7 2.5v5.6c0 4-2.8 7.5-7 8.9-4.2-1.4-7-4.9-7-8.9V5.5L12 3z" /><path d="M12 8l1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2-1.6-1.5L11 10l1-2z" /></> },
+  { label: 'Firefighters & EMS', color: '#E63946', icon: <path d="M12 3c2.5 2.6 4 4.9 4 7.4 0 1.5-.6 2.8-1.6 3.7.1-1.6-.5-3-2.4-4.4-.2 2.4-1 3.3-2 4.6-.8 1-1.3 2-1.3 3.1A4.6 4.6 0 0112 21a5.9 5.9 0 006-6c0-4-2.8-8.4-6-12z" /> },
+  { label: 'Military Veterans', color: '#FFB703', icon: <path d="M12 3l2.5 5.2 5.7.7-4.2 3.9 1.1 5.6L12 15.6l-5.1 2.8 1.1-5.6-4.2-3.9 5.7-.7L12 3z" /> },
+  { label: 'Educators & Alumni', color: '#219EBC', icon: <><path d="M12 4L2.5 8.5 12 13l9.5-4.5L12 4z" /><path d="M6 10.8V15c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.2M20.5 9v5" /></> },
+  { label: 'Artists & Creatives', color: '#8338EC', icon: <><path d="M9 17V6l10-2v11" /><circle cx="6.8" cy="17.2" r="2.4" /><circle cx="16.8" cy="15.2" r="2.4" /></> },
+  { label: 'Healthcare Professionals', color: '#D81860', icon: <><path d="M12 20s-7-4.5-9-9c-1.2-2.8.7-6 3.8-6 1.9 0 3.4 1 4.2 2.5C11.8 6 13.3 5 15.2 5c3.1 0 5 3.2 3.8 6-2 4.5-7 9-7 9z" /><path d="M6 12h3.5l1.5-2.5 2 4 1.5-2.5H18" /></> },
+  { label: 'Entrepreneurs & Leaders', color: '#F77F00', icon: <><rect x="3.5" y="8" width="17" height="11" rx="1.5" /><path d="M9 8V5.8C9 5 9.7 4.5 10.4 4.5h3.2c.7 0 1.4.5 1.4 1.3V8M3.5 13h17" /></> },
+]
+
+function StrokeIcon({ children, className, strokeWidth = 1.5 }: { children: React.ReactNode; className?: string; strokeWidth?: number }) {
   return (
-    <main className="min-h-screen bg-legacy-navy bg-[radial-gradient(1100px_500px_at_50%_-120px,rgba(255,183,3,0.07),transparent),radial-gradient(900px_500px_at_85%_110%,rgba(229,57,53,0.05),transparent)]">
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  )
+}
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#0a0f1a] text-white">
       {/* Header */}
-      <header className="border-b border-heritage-gold/15 bg-legacy-navy/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3.5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <LogoMark className="h-12" />
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0f1a]/90 backdrop-blur-md">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-6">
+          <div className="flex items-center gap-3 shrink-0">
+            <LogoChip className="h-11 w-11" />
             <div className="flex flex-col">
-              <div className="font-sans font-black text-[26px] leading-none tracking-tight text-white">
+              <div className="font-sans font-black text-2xl leading-none tracking-tight">
                 Official<span className="text-courage-red">Who</span>
               </div>
-              <div className="flex items-center gap-2 mt-1.5">
-                <span className="h-px w-4 bg-slate-400/50" />
-                <span className="text-[8.5px] tracking-[0.28em] text-slate-300 uppercase font-semibold">
+              <div className="flex items-center gap-1.5 mt-1">
+                <span className="h-px w-3 bg-courage-red" />
+                <span className="text-[8px] tracking-[0.26em] text-slate-300 uppercase font-semibold">
                   Verified. Celebrated. Remembered.
                 </span>
-                <span className="h-px w-4 bg-slate-400/50" />
+                <span className="h-px w-3 bg-courage-red" />
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-5">
-            <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-slate-400">
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  apiStatus === 'healthy' ? 'bg-emerald-400' : apiStatus === 'checking' ? 'bg-yellow-400' : 'bg-courage-red'
-                }`}
-              />
-              {apiStatus === 'healthy' ? 'All systems' : apiStatus === 'checking' ? 'Checking' : 'Offline'}
-            </span>
-            <button className="text-sm font-semibold text-white border border-white/20 hover:border-heritage-gold hover:text-heritage-gold rounded px-5 py-2 transition-colors">
-              Sign In
-            </button>
+
+          <nav className="hidden lg:flex items-center gap-7 text-sm text-slate-200">
+            {['Discover', 'Stories', 'Categories', 'Map', 'Resources', 'About'].map((item) => (
+              <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-4 shrink-0">
+            <StrokeIcon className="w-5 h-5 text-slate-300 hidden sm:block"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.8-3.8" /></StrokeIcon>
+            <a href="#" className="text-sm text-slate-200 hover:text-white hidden sm:block">Log In</a>
+            <a href="#" className="bg-courage-red hover:bg-courage-red/85 text-white text-sm font-semibold px-5 py-2 rounded transition-colors">
+              Sign Up
+            </a>
           </div>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="container mx-auto px-4 pt-24 pb-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
-          <div className="space-y-8 text-center lg:text-left">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-3 text-heritage-gold text-[11px] font-semibold tracking-[0.35em] uppercase">
-                <span className="h-px w-10 bg-heritage-gold/60 hidden sm:block" />
-                A Digital Hall of Honor
-              </div>
-              <h1 className="font-display text-6xl md:text-[5.2rem] text-white leading-[0.92] tracking-wide">
-                Celebrate<br />
-                <span className="text-courage-red">Extraordinary</span><br />
-                Lives
+      {/* Hero — serif stack left, diagonal honoree panels right */}
+      <section className="relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] items-center">
+            <div className="py-16 lg:py-24 pr-0 lg:pr-10 space-y-7 relative z-10">
+              <h1 className="font-serif font-black leading-[1.04] text-[3.4rem] md:text-[4.2rem]">
+                <span className="text-white">Every Story.</span>
+                <br />
+                <span className="text-courage-red">Every Legacy.</span>
               </h1>
-              <p className="text-lg text-slate-300/90 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Not another social network. OfficialWho is where verified alumni, first responders,
-                veterans, and communities are honored — permanently.
-              </p>
-              <p className="text-[13px] tracking-[0.3em] text-slate-300 uppercase font-semibold flex items-center gap-3 justify-center lg:justify-start">
-                <span className="h-px w-8 bg-slate-400/50" />
+              <div className="flex items-center gap-3 text-[12px] tracking-[0.25em] uppercase font-bold text-slate-100">
+                <span className="h-px w-7 bg-courage-red" />
                 Verified. Celebrated. Remembered.
-                <span className="h-px w-8 bg-slate-400/50" />
-              </p>
-              <p className="font-serif italic font-bold text-2xl text-courage-red">
-                Every Story. Every Legacy.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-              <Link href="/generate" className="brand-button text-base px-9 py-4 uppercase tracking-widest font-display">
-                Submit Your Honoree
-              </Link>
-              <Link href="/gallery" className="brand-button-secondary text-base px-9 py-4 uppercase tracking-widest font-display">
-                Explore Stories
-              </Link>
-            </div>
-          </div>
-
-          {/* Honor plaque mockup */}
-          <div className="relative mx-auto w-72 md:w-80">
-            <div className="absolute -inset-10 bg-heritage-gold/10 blur-3xl rounded-full" aria-hidden="true" />
-            <div className="relative border-[5px] border-courage-red bg-[#0a1523] p-1.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] rotate-1 hover:rotate-0 transition-transform duration-500">
-              <div className="border border-heritage-gold/50 p-4">
-                <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_35%,rgba(50,72,168,0.3),rgba(10,21,35,0.9))] flex items-center justify-center overflow-hidden">
-                  <LogoMark className="h-56" />
-                </div>
-                <div className="mt-5 text-center pb-1">
-                  <div className="flex items-center justify-center gap-3 text-heritage-gold mb-2.5">
-                    <span className="h-px w-10 bg-heritage-gold/60" />
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-current"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z" /></svg>
-                    <span className="h-px w-10 bg-heritage-gold/60" />
-                  </div>
-                  <div className="font-display text-3xl text-white uppercase tracking-[0.1em]">Your Name</div>
-                  <div className="text-[10px] tracking-[0.45em] text-heritage-gold uppercase mt-1.5">
-                    Class of 2026 · Verified
-                  </div>
-                </div>
+                <span className="h-px w-7 bg-courage-red" />
               </div>
+              <p className="text-slate-300 text-lg leading-relaxed max-w-md">
+                A national platform honoring the people who serve, achieve, and inspire—across every walk of life.
+              </p>
+              <div className="flex flex-wrap gap-4 pt-1">
+                <Link href="/gallery" className="bg-courage-red hover:bg-courage-red/85 text-white font-semibold px-7 py-3.5 rounded transition-colors inline-flex items-center gap-2">
+                  Explore Stories <span aria-hidden>→</span>
+                </Link>
+                <Link href="/generate" className="border border-white/30 hover:border-white text-white font-semibold px-7 py-3.5 rounded transition-colors">
+                  Create a Profile
+                </Link>
+              </div>
+            </div>
+
+            {/* Diagonal panels */}
+            <div className="relative h-64 lg:h-[560px] flex overflow-hidden lg:-mr-8">
+              {HERO_PANELS.map((panel, i) => (
+                <div key={panel.label} className="relative flex-1 -ml-3 first:ml-0 skew-x-[-6deg] overflow-hidden border-r border-black/60">
+                  <Image
+                    src={panel.img}
+                    alt={panel.label}
+                    fill
+                    sizes="(min-width: 1024px) 12vw, 14vw"
+                    className="object-cover skew-x-[6deg] scale-125"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1a]/70 via-transparent to-[#0a0f1a]/80" />
+                  <div className="absolute top-4 inset-x-0 skew-x-[6deg] px-2 text-center hidden lg:block">
+                    <span className="text-[10px] font-bold tracking-[0.14em] uppercase text-white/95 leading-tight block">
+                      {panel.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Code — five pillars as engraved numerals */}
-      <section className="border-y border-heritage-gold/15 bg-black/20">
+      {/* Category chips */}
+      <section className="border-y border-white/10 bg-black/30">
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+            {CATEGORY_CHIPS.map((cat) => (
+              <a
+                key={cat.label}
+                href="#"
+                className="border border-white/10 hover:border-white/30 rounded-lg px-3 py-4 flex flex-col items-center gap-2.5 text-center transition-colors bg-white/[0.02]"
+              >
+                <StrokeIcon className="w-7 h-7" strokeWidth={1.6}>
+                  <g style={{ color: cat.color }} stroke={cat.color}>{cat.icon}</g>
+                </StrokeIcon>
+                <span className="text-[11px] font-bold uppercase tracking-wide leading-tight text-slate-100">{cat.label}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats bar */}
+      <section className="border-b border-white/10">
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="flex items-center gap-3 justify-center">
+                <StrokeIcon className="w-8 h-8 text-courage-red shrink-0" strokeWidth={1.6}>{stat.icon}</StrokeIcon>
+                <div>
+                  <div className="font-sans font-black text-2xl leading-none">{stat.n}</div>
+                  <div className="text-xs text-slate-400 mt-1">{stat.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 max-w-5xl mx-auto">
+          {VALUES.map((value) => (
+            <div key={value.title} className="text-center space-y-4">
+              <div className="mx-auto w-20 h-20 rounded-full border border-white/25 flex items-center justify-center">
+                <StrokeIcon className="w-9 h-9 text-white" strokeWidth={1.4}>{value.icon}</StrokeIcon>
+              </div>
+              <h3 className="text-sm font-bold tracking-[0.2em] uppercase">{value.title}</h3>
+              <p className="text-[13px] text-slate-400 leading-relaxed">{value.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Featured Stories */}
+      <section className="border-t border-white/10 bg-black/30">
         <div className="container mx-auto px-4 py-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-px bg-white/5 border border-white/5">
-            {[
-              {
-                title: 'Create',
-                desc: 'Design a stunning legacy poster',
-                icon: (
-                  <>
-                    <rect x="4" y="3" width="16" height="18" rx="1.5" />
-                    <path d="M8.5 16c.5-2 1.8-3 3.5-3s3 1 3.5 3" />
-                    <circle cx="12" cy="9.5" r="2.5" />
-                  </>
-                ),
-              },
-              {
-                title: 'Join',
-                desc: 'Build your official legacy profile',
-                icon: (
-                  <>
-                    <circle cx="9" cy="8.5" r="3" />
-                    <path d="M3.5 19c.7-3.2 2.8-5 5.5-5s4.8 1.8 5.5 5" />
-                    <circle cx="16.5" cy="9.5" r="2.4" />
-                    <path d="M15.5 14.2c2.4.3 4.2 1.9 4.9 4.8" />
-                  </>
-                ),
-              },
-              {
-                title: 'Be Recognized',
-                desc: 'Share your story. Inspire generations.',
-                icon: <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6L12 16.7 6.6 19.6l1.1-6L3.2 9.4l6.1-.8L12 3z" />,
-              },
-              {
-                title: 'Connect',
-                desc: 'Find others. Build community.',
-                icon: (
-                  <>
-                    <circle cx="12" cy="12" r="9" />
-                    <path d="M3 12h18M12 3c2.8 2.4 4.2 5.4 4.2 9S14.8 18.6 12 21c-2.8-2.4-4.2-5.4-4.2-9S9.2 5.4 12 3z" />
-                  </>
-                ),
-              },
-              {
-                title: 'Preserve',
-                desc: 'Your legacy. Officially remembered.',
-                icon: <path d="M12 3l7.5 2.8v6.1c0 4.4-3 8.1-7.5 9.6-4.5-1.5-7.5-5.2-7.5-9.6V5.8L12 3z" />,
-              },
-            ].map((pillar) => (
-              <div key={pillar.title} className="bg-legacy-navy px-6 py-10 text-center space-y-4 hover:bg-[#101f31] transition-colors">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-10 h-10 mx-auto text-heritage-gold/90"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {pillar.icon}
-                </svg>
-                <div className="mx-auto w-8 h-px bg-heritage-gold/40" />
-                <h3 className="font-display text-xl text-white uppercase tracking-[0.15em]">{pillar.title}</h3>
-                <p className="text-[13px] text-slate-400 leading-relaxed">{pillar.desc}</p>
-              </div>
+          <h2 className="font-sans font-black text-3xl mb-10">Featured Stories</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {FEATURED_STORIES.map((story) => (
+              <a key={story.name} href="#" className="group relative rounded-lg overflow-hidden aspect-[3/4] border border-white/10 hover:border-white/30 transition-colors">
+                <Image src={story.img} alt={story.name} fill sizes="(min-width: 1024px) 15vw, 40vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+                <div className="absolute bottom-0 inset-x-0 p-3">
+                  <div className="font-bold text-sm">{story.name}</div>
+                  <div className="text-[11px] text-slate-300">{story.line}</div>
+                </div>
+              </a>
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <a href="#" className="inline-block border border-white/30 hover:border-white text-white font-semibold px-8 py-3 rounded transition-colors">
+              View All Stories
+            </a>
           </div>
         </div>
       </section>
 
-      {/* The Standard */}
-      <section className="container mx-auto px-4 py-24">
-        <SectionHeading kicker="The Standard" title="Built on Verification" />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {[
-            {
-              title: 'Verified Credentials',
-              description: 'Institutional verification through OAuth, batch imports, and peer validation. Every honor is earned — and checked.',
-            },
-            {
-              title: 'Nine Premium Styles',
-              description: 'Sports, Luxury, Vintage, Military Tribute, Hall of Fame, and more — each designed like it belongs on a wall.',
-            },
-            {
-              title: 'Print-Ready Quality',
-              description: '300 DPI output, made for framing. Digital first, but built for the mantelpiece.',
-            },
-          ].map((feature) => (
-            <div key={feature.title} className="border border-white/10 bg-white/[0.02] p-8 space-y-4 hover:border-heritage-gold/40 transition-colors">
-              <h3 className="font-display text-2xl text-white uppercase tracking-wide">{feature.title}</h3>
-              <div className="w-8 h-px bg-courage-red" />
-              <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>
+      {/* Nine premium styles — the tribute product */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="font-sans font-black text-3xl">Nine Premium Tribute Styles</h2>
+          <p className="text-slate-400 mt-3">Every honoree deserves a poster worth framing. 300 DPI, print-ready.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+          {mockPosterStyles.map((style) => (
+            <div key={style.id} className="group border border-white/10 rounded-lg p-6 text-center space-y-3 hover:border-courage-red/60 transition-colors bg-white/[0.02]">
+              <h3 className="font-bold text-lg group-hover:text-courage-red transition-colors">{style.label}</h3>
+              <p className="text-sm text-slate-400">{style.description}</p>
             </div>
           ))}
         </div>
-      </section>
-
-      {/* The Honored */}
-      <section className="border-y border-heritage-gold/15 bg-black/20">
-        <div className="container mx-auto px-4 py-24">
-          <SectionHeading kicker="The Honored" title="Community Highlights" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {mockUserProfiles.map((profile) => (
-              <div key={profile.id} className="border border-white/10 bg-legacy-navy p-7 space-y-5">
-                <div className="flex items-start gap-4">
-                  <div className="w-[52px] h-[52px] rounded-full bg-[#0a1523] border border-heritage-gold/50 flex items-center justify-center shrink-0">
-                    <span className="font-display text-xl text-heritage-gold/90">
-                      {profile.name.split(' ').map((n) => n.charAt(0)).join('')}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-xl text-white tracking-wide uppercase truncate">{profile.name}</h3>
-                    <p className="text-xs text-slate-400">{profile.school}</p>
-                  </div>
-                  {profile.verified && (
-                    <span className="text-heritage-gold" title="Verified">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current"><path d="M12 1l2.4 2.4h3.4l1 3.2 2.9 1.8-.9 3.3 2 2.8-2 2.8.9 3.3-2.9 1.8-1 3.2h-3.4L12 28l-2.4-2.4H6.2l-1-3.2-2.9-1.8.9-3.3-2-2.8 2-2.8-.9-3.3 2.9-1.8 1-3.2h3.4L12 1zm-1.2 14.5l5.4-5.4-1.4-1.4-4 4-1.8-1.8-1.4 1.4 3.2 3.2z" /></svg>
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-slate-300/90 leading-relaxed">{profile.bio}</p>
-                <div className="flex gap-2 pt-1">
-                  <span
-                    className="category-badge text-[11px] tracking-wide"
-                    style={{ backgroundColor: mockCategories.find((c) => c.id === profile.categoryId)?.color }}
-                  >
-                    {profile.category}
-                  </span>
-                  <span className="category-badge text-[11px] tracking-wide border border-white/15 bg-transparent text-slate-300">
-                    Class of {profile.graduationYear}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* The Halls */}
-      <section className="container mx-auto px-4 py-24">
-        <SectionHeading kicker="The Halls" title="Every Community. One Legacy." />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
-          {mockCategories.map((category) => (
-            <div
-              key={category.id}
-              className="group border border-white/10 bg-white/[0.02] p-6 text-center space-y-3 hover:border-heritage-gold/40 transition-colors cursor-pointer"
-            >
-              <div
-                className="mx-auto w-12 h-12 rounded-full border flex items-center justify-center font-display text-xl"
-                style={{ borderColor: category.color, color: category.color }}
-              >
-                {category.label.charAt(0)}
-              </div>
-              <p className="text-[13px] font-semibold text-white tracking-wide uppercase">{category.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* The Collection */}
-      <section className="border-y border-heritage-gold/15 bg-black/20">
-        <div className="container mx-auto px-4 py-24">
-          <SectionHeading kicker="The Collection" title="Nine Premium Styles" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {mockPosterStyles.map((style) => (
-              <div
-                key={style.id}
-                className="group border border-white/10 bg-legacy-navy p-7 text-center space-y-4 hover:border-courage-red/60 transition-colors"
-              >
-                <h3 className="font-display text-2xl text-white uppercase tracking-wide group-hover:text-courage-red transition-colors">
-                  {style.label}
-                </h3>
-                <p className="text-sm text-slate-400">{style.description}</p>
-                <button className="w-full text-xs py-2.5 border border-heritage-gold/40 text-heritage-gold hover:bg-heritage-gold hover:text-legacy-navy transition-colors font-semibold uppercase tracking-[0.2em]">
-                  Preview
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="container mx-auto px-4 py-28">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <LogoMark className="h-24 mx-auto" />
-          <h2 className="font-display text-5xl md:text-6xl text-white uppercase tracking-wide leading-tight">
-            Ready to Take<br />Your Place?
-          </h2>
-          <p className="text-lg text-slate-300/90 max-w-xl mx-auto">
+        <div className="text-center mt-12 space-y-5">
+          <p className="text-lg text-slate-300 max-w-xl mx-auto">
             Every honoree receives two free tribute posters. Bring the honor home with a framed print.
           </p>
-          <Link href="/generate" className="brand-button inline-block text-base px-12 py-4 uppercase tracking-widest font-display">
+          <Link href="/generate" className="inline-block bg-courage-red hover:bg-courage-red/85 text-white font-semibold px-10 py-4 rounded transition-colors">
             Submit Your Honoree
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-heritage-gold/15 bg-black/30 py-14">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2.5">
-                <LogoMark className="h-10" />
-                <span className="font-sans font-black text-xl tracking-tight text-white">
-                  Official<span className="text-courage-red">Who</span>
-                </span>
-              </div>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                A digital hall of honor for verified alumni and communities.
-              </p>
-            </div>
+      <footer className="border-t border-white/10 bg-black/40">
+        {/* Value strip */}
+        <div className="border-b border-white/10">
+          <div className="container mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 items-center">
             {[
-              { heading: 'Product', links: ['Features', 'Pricing', 'API'] },
-              { heading: 'Company', links: ['About', 'Blog', 'Contact'] },
-              { heading: 'Legal', links: ['Privacy', 'Terms'] },
-            ].map((col) => (
-              <div key={col.heading} className="space-y-3">
-                <h4 className="text-[11px] font-semibold text-heritage-gold uppercase tracking-[0.3em]">{col.heading}</h4>
-                <ul className="text-sm text-slate-400 space-y-2">
-                  {col.links.map((link) => (
-                    <li key={link}>
-                      <a href="#" className="hover:text-white transition-colors">{link}</a>
-                    </li>
-                  ))}
-                </ul>
+              { title: 'Secure & Verified', desc: 'Every profile is carefully verified for authenticity.', icon: <><path d="M12 3l7.5 2.8v6.1c0 4.4-3 8.1-7.5 9.6-4.5-1.5-7.5-5.2-7.5-9.6V5.8L12 3z" /><path d="M9 12l2.2 2.2L15.5 10" /></> },
+              { title: 'Celebrated & Shared', desc: 'Stories are highlighted and shared with the world.', icon: <path d="M12 3l2.5 5.2 5.7.7-4.2 3.9 1.1 5.6L12 15.6l-5.1 2.8 1.1-5.6-4.2-3.9 5.7-.7L12 3z" /> },
+              { title: 'Remembered Forever', desc: 'Legacies documented today inspire generations tomorrow.', icon: <><circle cx="9" cy="9" r="2.8" /><circle cx="16.5" cy="10" r="2.2" /><path d="M3.8 19c.6-3 2.6-4.8 5.2-4.8s4.6 1.8 5.2 4.8M14.5 14.6c2.2.3 3.9 1.8 4.5 4.4" /></> },
+              { title: 'Global Impact', desc: 'Connecting people and communities worldwide.', icon: <><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h17M12 3.5c2.6 2.3 4 5.1 4 8.5s-1.4 6.2-4 8.5c-2.6-2.3-4-5.1-4-8.5s1.4-6.2 4-8.5z" /></> },
+            ].map((item) => (
+              <div key={item.title} className="flex items-start gap-3">
+                <StrokeIcon className="w-8 h-8 text-white shrink-0 mt-0.5" strokeWidth={1.4}>{item.icon}</StrokeIcon>
+                <div>
+                  <div className="font-bold text-sm">{item.title}</div>
+                  <div className="text-xs text-slate-400 mt-1 leading-relaxed">{item.desc}</div>
+                </div>
               </div>
             ))}
+            <blockquote className="lg:text-right">
+              <span className="text-courage-red text-3xl font-serif leading-none" aria-hidden>“</span>
+              <p className="font-serif italic text-slate-200 text-sm leading-relaxed inline">
+                We don&apos;t just tell stories. We honor lives that shaped our world.
+              </p>
+            </blockquote>
           </div>
-          <div className="border-t border-white/10 pt-8 text-center">
-            <p className="text-sm text-slate-500">© 2026 OfficialWho. Not another social network. A digital hall of honor.</p>
-            <p className="mt-2 text-[10px] tracking-[0.4em] text-heritage-gold/70 uppercase">Verified · Celebrated · Remembered</p>
+        </div>
+
+        <div className="container mx-auto px-4 py-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2.5">
+              <LogoChip className="h-9 w-9" />
+              <span className="font-sans font-black text-lg tracking-tight">
+                Official<span className="text-courage-red">Who</span>
+              </span>
+            </div>
+            <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400 justify-center">
+              {['About', 'Pricing', 'API', 'Blog', 'Contact', 'Privacy', 'Terms'].map((item) => (
+                <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
+              ))}
+            </nav>
+          </div>
+          <div className="mt-8 pt-6 border-t border-white/10 text-center">
+            <p className="text-sm text-slate-500">© 2026 OfficialWho. Every Story. Every Legacy.</p>
           </div>
         </div>
       </footer>
