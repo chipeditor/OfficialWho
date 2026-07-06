@@ -1,32 +1,35 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useId } from 'react'
 import { mockCategories, mockPosterStyles, mockUserProfiles } from '@/lib/mock-data'
 
-/* Dignified side-profile bust, facing right — shared brand silhouette */
-const BUST_PATH = `M47 27
-  C 44 23.5 37 22 30 23
-  C 21 24.5 15.5 33 15.5 44
-  C 15.5 50 17.5 54 17.5 58
-  C 17.5 61.5 16.5 64 14 66.5
-  C 9 70 6.5 75 5.5 82
-  C 5 86 5 90 5 94
-  L 59 94
-  C 59 86 58 79 55 74
-  C 52 70 47 67 43.5 64.5
-  C 42.8 62.7 42.2 60.5 42.6 58.6
-  L 47.8 54.6
-  C 49.6 53.4 49.8 51.6 48.6 50.4
-  L 47.6 49.6
-  C 49.6 48.8 49.8 47.4 48.4 46.8
-  L 48 46.4
-  C 50 45.8 50.2 44.4 48.8 43.8
-  L 48.4 43.2
-  L 52.8 41.6
-  L 48.2 34.8
-  C 47.6 34 47.8 33 48.2 32.2
-  C 48.8 30.4 48.2 28.4 47 27 Z`
+/* Dignified side-profile bust, facing right — from the brand study.
+   Head with defined brow/nose/lips/chin, straight plinth-like torso. */
+const BUST_PATH = `M29 5
+  C 20 5.5 13.5 12 13.5 22
+  C 13.5 30 15 35 15 40
+  C 15 45 14 48 12 50.5
+  C 7.5 54 4.5 58 3 64
+  C 2.2 68 2 72 2 78
+  L 2 96
+  L 62 96
+  L 62 80
+  C 62 70 57 62 47 57
+  C 43.5 55.2 41 52.8 41 49.5
+  L 41 46.5
+  C 43.5 45.8 46 44.5 48.6 42
+  C 50.2 40.8 50 38.8 48.4 38
+  C 48 37.4 48 37 48.8 36.6
+  C 50.2 35.8 50 34.4 48.6 33.8
+  L 49 33.4
+  C 50.2 32.8 50 31.6 48.6 31
+  L 48.4 30.5
+  L 54.5 28
+  L 48.2 21.5
+  C 47.6 20.6 47.4 19.6 48 18.5
+  C 48.2 15.5 47.5 12.5 45.5 10
+  C 42 6.5 36 5 29 5 Z`
 
 function Bust({ className }: { className?: string }) {
   return (
@@ -36,19 +39,31 @@ function Bust({ className }: { className?: string }) {
   )
 }
 
-/* Brand mark — open red frame, bust breaking out of it (from the brand study) */
-function LogoMark({ className }: { className?: string }) {
+/* Brand mark — red frame interrupted by the bust (clean gap), per the study.
+   `bust` sets the silhouette color: white for dark surfaces, navy for light. */
+function LogoMark({ className, bust = 'fill-white' }: { className?: string; bust?: string }) {
+  const maskId = useId()
   return (
-    <svg viewBox="0 0 100 100" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
-      {/* Red frame */}
+    <svg viewBox="0 0 120 120" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
+      <defs>
+        <mask id={maskId}>
+          <rect width="120" height="120" fill="white" />
+          {/* Cut a clean gap in the frame around the bust */}
+          <g transform="translate(19 36.5) scale(0.68)">
+            <path d={BUST_PATH} fill="black" stroke="black" strokeWidth="8" />
+          </g>
+        </mask>
+      </defs>
+      {/* Red frame ring */}
       <path
-        d="M12 4 L88 4 L88 72 L12 72 Z M24 16 L76 16 L76 60 L24 60 Z"
+        d="M22 6 L114 6 L114 102 L22 102 Z M37 21 L99 21 L99 87 L37 87 Z"
         fillRule="evenodd"
         className="fill-courage-red"
+        mask={`url(#${maskId})`}
       />
-      {/* Bust breaking the frame */}
-      <g transform="translate(16 10) scale(1.02)">
-        <path d={BUST_PATH} className="fill-white" />
+      {/* Bust */}
+      <g transform="translate(19 36.5) scale(0.68)">
+        <path d={BUST_PATH} className={bust} />
       </g>
     </svg>
   )
@@ -83,7 +98,7 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <LogoMark className="w-12 h-12" />
             <div className="flex flex-col">
-              <div className="font-serif font-black text-[26px] leading-none text-white">
+              <div className="font-sans font-black text-[26px] leading-none tracking-tight text-white">
                 Official<span className="text-courage-red">Who</span>
               </div>
               <div className="flex items-center gap-2 mt-1.5">
@@ -179,14 +194,63 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-px bg-white/5 border border-white/5">
             {[
-              { n: 'I', title: 'Create', desc: 'Design a stunning legacy poster' },
-              { n: 'II', title: 'Join', desc: 'Build your official legacy profile' },
-              { n: 'III', title: 'Be Recognized', desc: 'Share your story. Inspire generations.' },
-              { n: 'IV', title: 'Connect', desc: 'Find others. Build community.' },
-              { n: 'V', title: 'Preserve', desc: 'Your legacy. Officially remembered.' },
+              {
+                title: 'Create',
+                desc: 'Design a stunning legacy poster',
+                icon: (
+                  <>
+                    <rect x="4" y="3" width="16" height="18" rx="1.5" />
+                    <path d="M8.5 16c.5-2 1.8-3 3.5-3s3 1 3.5 3" />
+                    <circle cx="12" cy="9.5" r="2.5" />
+                  </>
+                ),
+              },
+              {
+                title: 'Join',
+                desc: 'Build your official legacy profile',
+                icon: (
+                  <>
+                    <circle cx="9" cy="8.5" r="3" />
+                    <path d="M3.5 19c.7-3.2 2.8-5 5.5-5s4.8 1.8 5.5 5" />
+                    <circle cx="16.5" cy="9.5" r="2.4" />
+                    <path d="M15.5 14.2c2.4.3 4.2 1.9 4.9 4.8" />
+                  </>
+                ),
+              },
+              {
+                title: 'Be Recognized',
+                desc: 'Share your story. Inspire generations.',
+                icon: <path d="M12 3l2.7 5.6 6.1.8-4.5 4.2 1.1 6L12 16.7 6.6 19.6l1.1-6L3.2 9.4l6.1-.8L12 3z" />,
+              },
+              {
+                title: 'Connect',
+                desc: 'Find others. Build community.',
+                icon: (
+                  <>
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M3 12h18M12 3c2.8 2.4 4.2 5.4 4.2 9S14.8 18.6 12 21c-2.8-2.4-4.2-5.4-4.2-9S9.2 5.4 12 3z" />
+                  </>
+                ),
+              },
+              {
+                title: 'Preserve',
+                desc: 'Your legacy. Officially remembered.',
+                icon: <path d="M12 3l7.5 2.8v6.1c0 4.4-3 8.1-7.5 9.6-4.5-1.5-7.5-5.2-7.5-9.6V5.8L12 3z" />,
+              },
             ].map((pillar) => (
-              <div key={pillar.n} className="bg-legacy-navy px-6 py-10 text-center space-y-3 hover:bg-[#101f31] transition-colors">
-                <div className="font-display text-4xl text-heritage-gold/90">{pillar.n}</div>
+              <div key={pillar.title} className="bg-legacy-navy px-6 py-10 text-center space-y-4 hover:bg-[#101f31] transition-colors">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-10 h-10 mx-auto text-heritage-gold/90"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  {pillar.icon}
+                </svg>
                 <div className="mx-auto w-8 h-px bg-heritage-gold/40" />
                 <h3 className="font-display text-xl text-white uppercase tracking-[0.15em]">{pillar.title}</h3>
                 <p className="text-[13px] text-slate-400 leading-relaxed">{pillar.desc}</p>
@@ -329,7 +393,7 @@ export default function Home() {
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
                 <LogoMark className="w-10 h-10" />
-                <span className="font-serif font-black text-xl text-white">
+                <span className="font-sans font-black text-xl tracking-tight text-white">
                   Official<span className="text-courage-red">Who</span>
                 </span>
               </div>
