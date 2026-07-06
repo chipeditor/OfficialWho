@@ -20,12 +20,26 @@ const merriweather = Merriweather({
   variable: '--font-serif',
 })
 
+const SITE_TITLE = 'OfficialWho — The Global Hall of Honor'
+const SITE_DESCRIPTION =
+  'Every Story. Every Legacy. A global platform honoring the people who serve, achieve, and inspire — verified, celebrated, and remembered across 195 countries.'
+
 export const metadata: Metadata = {
-  title: 'OfficialWho — Verified. Celebrated. Remembered.',
-  description:
-    'Not another social network. A digital hall of honor for verified alumni, professionals, and communities.',
-  icons: {
-    icon: '/favicon.ico',
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL('https://officialwho.com'),
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: 'OfficialWho',
+    type: 'website',
+    images: ['/brand/og-image.jpg'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ['/brand/og-image.jpg'],
   },
 }
 
