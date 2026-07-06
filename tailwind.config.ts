@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         display: ['var(--font-display)', 'Impact', 'sans-serif'],
         sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
       },
       colors: {
         // OfficialWho brand palette

@@ -4,26 +4,53 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { mockCategories, mockPosterStyles, mockUserProfiles } from '@/lib/mock-data'
 
-/* Cameo side-profile silhouette — the brand mark */
-function Cameo({ className }: { className?: string }) {
+/* Dignified side-profile bust, facing right — shared brand silhouette */
+const BUST_PATH = `M47 27
+  C 44 23.5 37 22 30 23
+  C 21 24.5 15.5 33 15.5 44
+  C 15.5 50 17.5 54 17.5 58
+  C 17.5 61.5 16.5 64 14 66.5
+  C 9 70 6.5 75 5.5 82
+  C 5 86 5 90 5 94
+  L 59 94
+  C 59 86 58 79 55 74
+  C 52 70 47 67 43.5 64.5
+  C 42.8 62.7 42.2 60.5 42.6 58.6
+  L 47.8 54.6
+  C 49.6 53.4 49.8 51.6 48.6 50.4
+  L 47.6 49.6
+  C 49.6 48.8 49.8 47.4 48.4 46.8
+  L 48 46.4
+  C 50 45.8 50.2 44.4 48.8 43.8
+  L 48.4 43.2
+  L 52.8 41.6
+  L 48.2 34.8
+  C 47.6 34 47.8 33 48.2 32.2
+  C 48.8 30.4 48.2 28.4 47 27 Z`
+
+function Bust({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 64 60" className={className} aria-hidden="true">
-      <path
-        d="M33 6c-9.5 0-16 6.4-16.6 15.3-.2 2.8.3 5.6-.9 7.9l-3.2 6c-.6 1.2 0 2.4 1.3 2.7l3.4.8v4.6c0 2.3 1.8 4.1 4.1 4.1h4.4V54h16V42.7c4.9-3.7 8-9.6 8-16.2C49.5 15 42.5 6 33 6z"
-        fill="currentColor"
-      />
+    <svg viewBox="0 0 64 100" className={className} aria-hidden="true">
+      <path d={BUST_PATH} fill="currentColor" />
     </svg>
   )
 }
 
-/* Framed cameo — red outer frame, gold inner hairline */
+/* Brand mark — open red frame, bust breaking out of it (from the brand study) */
 function LogoMark({ className }: { className?: string }) {
   return (
-    <div className={`rounded-sm border-2 border-courage-red bg-legacy-navy p-0.5 shrink-0 ${className ?? ''}`}>
-      <div className="w-full h-full border border-heritage-gold/50 rounded-[2px] flex items-end justify-center overflow-hidden">
-        <Cameo className="w-[70%] h-[70%] text-white/90 translate-y-0.5" />
-      </div>
-    </div>
+    <svg viewBox="0 0 100 100" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
+      {/* Red frame */}
+      <path
+        d="M12 4 L88 4 L88 72 L12 72 Z M24 16 L76 16 L76 60 L24 60 Z"
+        fillRule="evenodd"
+        className="fill-courage-red"
+      />
+      {/* Bust breaking the frame */}
+      <g transform="translate(16 10) scale(1.02)">
+        <path d={BUST_PATH} className="fill-white" />
+      </g>
+    </svg>
   )
 }
 
@@ -54,13 +81,17 @@ export default function Home() {
       <header className="border-b border-heritage-gold/15 bg-legacy-navy/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LogoMark className="w-11 h-11" />
+            <LogoMark className="w-12 h-12" />
             <div className="flex flex-col">
-              <div className="font-display text-2xl leading-none text-white tracking-wide">
-                OFFICIAL<span className="text-courage-red">WHO</span>
+              <div className="font-serif font-black text-[26px] leading-none text-white">
+                Official<span className="text-courage-red">Who</span>
               </div>
-              <div className="text-[9px] tracking-[0.3em] text-heritage-gold/90 uppercase mt-0.5">
-                Verified • Celebrated • Remembered
+              <div className="flex items-center gap-2 mt-1.5">
+                <span className="h-px w-4 bg-slate-400/50" />
+                <span className="text-[8.5px] tracking-[0.28em] text-slate-300 uppercase font-semibold">
+                  Verified. Celebrated. Remembered.
+                </span>
+                <span className="h-px w-4 bg-slate-400/50" />
               </div>
             </div>
           </div>
@@ -98,8 +129,13 @@ export default function Home() {
                 Not another social network. OfficialWho is where verified alumni, first responders,
                 veterans, and communities are honored — permanently.
               </p>
-              <p className="font-display text-xl tracking-[0.25em] text-heritage-gold uppercase">
+              <p className="text-[13px] tracking-[0.3em] text-slate-300 uppercase font-semibold flex items-center gap-3 justify-center lg:justify-start">
+                <span className="h-px w-8 bg-slate-400/50" />
                 Verified. Celebrated. Remembered.
+                <span className="h-px w-8 bg-slate-400/50" />
+              </p>
+              <p className="font-serif italic font-bold text-2xl text-courage-red">
+                Every Story. Every Legacy.
               </p>
             </div>
 
@@ -119,7 +155,7 @@ export default function Home() {
             <div className="relative border-[5px] border-courage-red bg-[#0a1523] p-1.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] rotate-1 hover:rotate-0 transition-transform duration-500">
               <div className="border border-heritage-gold/50 p-4">
                 <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_30%,rgba(50,72,168,0.35),rgba(10,21,35,0.9))] flex items-end justify-center overflow-hidden">
-                  <Cameo className="w-44 h-44 text-white/85 translate-y-5" />
+                  <Bust className="w-40 h-60 text-white/85 translate-y-3" />
                 </div>
                 <div className="mt-5 text-center pb-1">
                   <div className="flex items-center justify-center gap-3 text-heritage-gold mb-2.5">
@@ -195,8 +231,8 @@ export default function Home() {
             {mockUserProfiles.map((profile) => (
               <div key={profile.id} className="border border-white/10 bg-legacy-navy p-7 space-y-5">
                 <div className="flex items-start gap-4">
-                  <div className="w-13 h-13 w-[52px] h-[52px] rounded-full bg-[#0a1523] border border-heritage-gold/50 flex items-end justify-center overflow-hidden shrink-0">
-                    <Cameo className="w-9 h-9 text-white/40 translate-y-1" />
+                  <div className="w-[52px] h-[52px] rounded-full bg-[#0a1523] border border-heritage-gold/50 flex items-end justify-center overflow-hidden shrink-0">
+                    <Bust className="w-8 h-12 text-white/40 translate-y-1.5" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display text-xl text-white tracking-wide uppercase truncate">{profile.name}</h3>
@@ -292,9 +328,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
-                <LogoMark className="w-9 h-9" />
-                <span className="font-display text-xl text-white tracking-wide">
-                  OFFICIAL<span className="text-courage-red">WHO</span>
+                <LogoMark className="w-10 h-10" />
+                <span className="font-serif font-black text-xl text-white">
+                  Official<span className="text-courage-red">Who</span>
                 </span>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed">

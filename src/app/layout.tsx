@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Bebas_Neue, Inter } from 'next/font/google'
+import { Bebas_Neue, Inter, Merriweather } from 'next/font/google'
 import './globals.css'
 
 const bebasNeue = Bebas_Neue({
@@ -11,6 +11,13 @@ const bebasNeue = Bebas_Neue({
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+})
+
+const merriweather = Merriweather({
+  weight: ['700', '900'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-serif',
 })
 
 export const metadata: Metadata = {
@@ -28,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${bebasNeue.variable} ${inter.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${bebasNeue.variable} ${inter.variable} ${merriweather.variable}`}>
       <body className="antialiased font-sans">
         {children}
       </body>
