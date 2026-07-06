@@ -311,6 +311,51 @@ async function renderPoster(
 
 ---
 
+## On-Demand Printing (Physical Honors)
+
+> **Copy rule (non-negotiable)**: The flow is always **"Submit Your Honoree"** — never "Add your poster."
+> Users don't buy posters; they honor someone. All CTAs, emails, and receipts use honoree language.
+
+### The Flow
+
+```
+Submit Your Honoree → Verify → Generate tribute → Digital preview (free/watermarked)
+                                                       ↓
+                                        "Bring this honor home" (print upsell)
+```
+
+### Product Line
+
+| Product | Retail | Est. COGS (POD) | Margin |
+|---------|--------|------------------|--------|
+| Premium poster print (18×24, matte) | $29 | $8–12 | ~$18 |
+| Framed print (18×24, wood frame) | $79 | $25–35 | ~$45 |
+| Canvas wrap (16×20) | $69 | $20–28 | ~$42 |
+| Metal / plaque tribute (12×18) | $99 | $30–40 | ~$60 |
+| Hall of Honor bundle (framed + 2 posters) | $129 | $45–55 | ~$75 |
+
+### Fulfillment
+
+- **POD partner**: Printful / Prodigi / Gelato — zero inventory, pay-per-order (fits free-tier cost constraint: no fixed costs)
+- Webhook-driven: order placed → POD API → tracking synced to user's profile
+- Printed pieces are **never watermarked** — print purchase includes the clean render, on any tier
+- 300 DPI output pipeline already a core requirement (see Print-Ready Quality)
+
+### Why Print Fits the Brand
+
+- A "digital hall of honor" earns its physical counterpart — the mantelpiece, the station wall, the trophy case
+- Physical product = gift purchase (families buying for honorees), which decouples the buyer from the user
+- Print margin ($18–75/order) dwarfs subscription ARPU; even 2% attach rate on renders materially changes unit economics
+- Tier synergy: Pro/Plus members get member pricing (e.g., 15% off prints) — subscription justification without paywalling honor itself
+
+### Integration Points
+
+- `entitlements.ts` → add `printDiscountPct` per tier (free: 0, pro: 10, plus: 15, enterprise: wholesale)
+- `POST /api/orders` (Phase 2) → create POD order, log to `audit_logs`
+- RevenueCat handles subscriptions only; print orders go through Stripe checkout (one-time payments)
+
+---
+
 ## Scaling the Monetization
 
 ### Stage 1: Free + Free Tier (Week 1-4)
@@ -323,12 +368,18 @@ async function renderPoster(
 - Existing free users grandfathered to "free tier"
 - Track conversion rate from free → paid
 
-### Stage 3: B2B Upsell (Month 2+)
+### Stage 3: On-Demand Printing (Month 2+)
+- Wire POD partner (Printful/Prodigi) + Stripe checkout
+- "Submit Your Honoree" → digital tribute → print upsell
+- Highest-margin revenue line; gift purchases decouple buyer from user
+
+### Stage 4: B2B Upsell (Month 3+)
 - Reach out to alumni associations + schools
 - Custom "Enterprise" tier with unlimited renders, white-label, batch API
+- Bulk print orders for reunions, memorials, station walls (wholesale pricing)
 - Projected LTV: $500-5000/customer
 
-### Stage 4: Ads Alternative (If needed)
+### Stage 5: Ads Alternative (If needed)
 - If monetization too aggressive, add ad-supported tier
 - Interstitial ads between renders (video ads = higher eCPM)
 - Keep watermark to justify ad placement

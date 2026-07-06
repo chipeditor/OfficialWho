@@ -107,10 +107,10 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
               <Link href="/generate" className="brand-button text-base px-9 py-4 uppercase tracking-widest font-display">
-                Create Your Poster
+                Submit Your Honoree
               </Link>
               <Link href="/gallery" className="brand-button-secondary text-base px-9 py-4 uppercase tracking-widest font-display">
-                Explore the Hall
+                Explore Stories
               </Link>
             </div>
           </div>
@@ -331,10 +331,10 @@ export default function Home() {
             Ready to Take<br />Your Place?
           </h2>
           <p className="text-lg text-slate-300/90 max-w-xl mx-auto">
-            Start with two free posters. Upgrade to celebrate your full story.
+            Every honoree receives two free tribute posters. Bring the honor home with a framed print.
           </p>
           <Link href="/generate" className="brand-button inline-block text-base px-12 py-4 uppercase tracking-widest font-display">
-            Create Your First Poster
+            Submit Your Honoree
           </Link>
         </div>
       </section>
