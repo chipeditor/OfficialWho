@@ -233,15 +233,15 @@ export default function Home() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0f1a]/90 backdrop-blur-md">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-3 shrink-0">
-            <LogoChip className="h-11 w-11" />
-            <div className="flex flex-col">
-              <div className="font-sans font-black text-2xl leading-none tracking-tight">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <LogoChip className="h-10 w-10 sm:h-11 sm:w-11" />
+            <div className="flex flex-col min-w-0">
+              <div className="font-sans font-black text-xl sm:text-2xl leading-none tracking-tight whitespace-nowrap">
                 Official<span className="text-courage-red">Who</span>
               </div>
-              <div className="flex items-center gap-1.5 mt-1">
+              <div className="hidden sm:flex items-center gap-1.5 mt-1">
                 <span className="h-px w-3 bg-courage-red" />
-                <span className="text-[8px] tracking-[0.26em] text-slate-300 uppercase font-semibold">
+                <span className="text-[8px] tracking-[0.26em] text-slate-300 uppercase font-semibold whitespace-nowrap">
                   Verified. Celebrated. Remembered.
                 </span>
                 <span className="h-px w-3 bg-courage-red" />
@@ -255,10 +255,10 @@ export default function Home() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
             <StrokeIcon className="w-5 h-5 text-slate-300 hidden sm:block"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.8-3.8" /></StrokeIcon>
             <a href="#" className="text-sm text-slate-200 hover:text-white hidden sm:block">Log In</a>
-            <a href="#" className="bg-courage-red hover:bg-courage-red/85 text-white text-sm font-semibold px-5 py-2 rounded transition-colors">
+            <a href="#" className="bg-courage-red hover:bg-courage-red/85 text-white text-sm font-semibold px-4 sm:px-5 py-2 rounded transition-colors whitespace-nowrap">
               Sign Up
             </a>
           </div>
@@ -270,15 +270,15 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-[42%_58%] items-center">
             <div className="py-16 lg:py-24 pr-0 lg:pr-10 space-y-7 relative z-10">
-              <h1 className="font-serif font-black leading-[1.04] text-[3.4rem] md:text-[4.2rem]">
+              <h1 className="font-serif font-black leading-[1.04] text-[2.55rem] sm:text-[3.4rem] md:text-[4.2rem]">
                 <span className="text-white">Every Story.</span>
                 <br />
                 <span className="text-courage-red">Every Legacy.</span>
               </h1>
-              <div className="flex items-center gap-3 text-[12px] tracking-[0.25em] uppercase font-bold text-slate-100">
-                <span className="h-px w-7 bg-courage-red" />
+              <div className="flex items-center justify-center lg:justify-start gap-2 sm:gap-3 text-[10px] sm:text-[12px] tracking-[0.18em] sm:tracking-[0.25em] uppercase font-bold text-slate-100 whitespace-nowrap">
+                <span className="h-px w-4 sm:w-7 bg-courage-red shrink-0" />
                 Verified. Celebrated. Remembered.
-                <span className="h-px w-7 bg-courage-red" />
+                <span className="h-px w-4 sm:w-7 bg-courage-red shrink-0" />
               </div>
               <p className="text-slate-300 text-lg leading-relaxed max-w-md">
                 The global platform honoring the people who serve, achieve, and inspire—across every walk of life, in every nation.
