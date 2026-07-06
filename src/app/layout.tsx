@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Alumni Legacy Poster Generator',
+  title: 'OfficialWho — Verified. Celebrated. Remembered.',
   description:
-    'Generate premium alumni posters with dynamic school branding and AI-powered design',
+    'Not another social network. A digital hall of honor for verified alumni, professionals, and communities.',
   icons: {
     icon: '/favicon.ico',
   },
