@@ -1,70 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect, useId } from 'react'
+import { useState, useEffect } from 'react'
 import { mockCategories, mockPosterStyles, mockUserProfiles } from '@/lib/mock-data'
 
-/* Dignified side-profile bust, facing right — from the brand study.
-   Head with defined brow/nose/lips/chin, straight plinth-like torso. */
-const BUST_PATH = `M29 5
-  C 20 5.5 13.5 12 13.5 22
-  C 13.5 30 15 35 15 40
-  C 15 45 14 48 12 50.5
-  C 7.5 54 4.5 58 3 64
-  C 2.2 68 2 72 2 78
-  L 2 96
-  L 62 96
-  L 62 80
-  C 62 70 57 62 47 57
-  C 43.5 55.2 41 52.8 41 49.5
-  L 41 46.5
-  C 43.5 45.8 46 44.5 48.6 42
-  C 50.2 40.8 50 38.8 48.4 38
-  C 48 37.4 48 37 48.8 36.6
-  C 50.2 35.8 50 34.4 48.6 33.8
-  L 49 33.4
-  C 50.2 32.8 50 31.6 48.6 31
-  L 48.4 30.5
-  L 54.5 28
-  L 48.2 21.5
-  C 47.6 20.6 47.4 19.6 48 18.5
-  C 48.2 15.5 47.5 12.5 45.5 10
-  C 42 6.5 36 5 29 5 Z`
-
-function Bust({ className }: { className?: string }) {
+/* Brand mark — the open red frame from the logo: left + top + right strokes,
+   angled ribbon-cut ends, open bottom. Geometric and exact.
+   The silhouette from the primary logo ships as a real asset (public/brand/). */
+function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 64 100" className={className} aria-hidden="true">
-      <path d={BUST_PATH} fill="currentColor" />
-    </svg>
-  )
-}
-
-/* Brand mark — red frame interrupted by the bust (clean gap), per the study.
-   `bust` sets the silhouette color: white for dark surfaces, navy for light. */
-function LogoMark({ className, bust = 'fill-white' }: { className?: string; bust?: string }) {
-  const maskId = useId()
-  return (
-    <svg viewBox="0 0 120 120" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
-      <defs>
-        <mask id={maskId}>
-          <rect width="120" height="120" fill="white" />
-          {/* Cut a clean gap in the frame around the bust */}
-          <g transform="translate(19 36.5) scale(0.68)">
-            <path d={BUST_PATH} fill="black" stroke="black" strokeWidth="8" />
-          </g>
-        </mask>
-      </defs>
-      {/* Red frame ring */}
+    <svg viewBox="0 0 100 100" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
       <path
-        d="M22 6 L114 6 L114 102 L22 102 Z M37 21 L99 21 L99 87 L37 87 Z"
-        fillRule="evenodd"
+        d="M8 8 L92 8 L92 64 L76 56 L76 24 L24 24 L24 70 L8 78 Z"
         className="fill-courage-red"
-        mask={`url(#${maskId})`}
       />
-      {/* Bust */}
-      <g transform="translate(19 36.5) scale(0.68)">
-        <path d={BUST_PATH} className={bust} />
-      </g>
     </svg>
   )
 }
@@ -169,8 +118,16 @@ export default function Home() {
             <div className="absolute -inset-10 bg-heritage-gold/10 blur-3xl rounded-full" aria-hidden="true" />
             <div className="relative border-[5px] border-courage-red bg-[#0a1523] p-1.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] rotate-1 hover:rotate-0 transition-transform duration-500">
               <div className="border border-heritage-gold/50 p-4">
-                <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_30%,rgba(50,72,168,0.35),rgba(10,21,35,0.9))] flex items-end justify-center overflow-hidden">
-                  <Bust className="w-40 h-60 text-white/85 translate-y-3" />
+                <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_30%,rgba(50,72,168,0.35),rgba(10,21,35,0.9))] flex flex-col items-center justify-between overflow-hidden py-5">
+                  <div className="flex items-center gap-1.5 opacity-80">
+                    <LogoMark className="w-4 h-4" />
+                    <span className="font-sans font-black text-[10px] tracking-tight text-white">
+                      Official<span className="text-courage-red">Who</span>
+                    </span>
+                  </div>
+                  <div className="text-[10px] tracking-[0.4em] text-white/40 uppercase">
+                    Your Portrait Here
+                  </div>
                 </div>
                 <div className="mt-5 text-center pb-1">
                   <div className="flex items-center justify-center gap-3 text-heritage-gold mb-2.5">
@@ -295,8 +252,10 @@ export default function Home() {
             {mockUserProfiles.map((profile) => (
               <div key={profile.id} className="border border-white/10 bg-legacy-navy p-7 space-y-5">
                 <div className="flex items-start gap-4">
-                  <div className="w-[52px] h-[52px] rounded-full bg-[#0a1523] border border-heritage-gold/50 flex items-end justify-center overflow-hidden shrink-0">
-                    <Bust className="w-8 h-12 text-white/40 translate-y-1.5" />
+                  <div className="w-[52px] h-[52px] rounded-full bg-[#0a1523] border border-heritage-gold/50 flex items-center justify-center shrink-0">
+                    <span className="font-display text-xl text-heritage-gold/90">
+                      {profile.name.split(' ').map((n) => n.charAt(0)).join('')}
+                    </span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display text-xl text-white tracking-wide uppercase truncate">{profile.name}</h3>
