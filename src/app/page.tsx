@@ -4,83 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { mockPosterStyles } from '@/lib/mock-data'
-
-/* Social share bar — Web Share API first, intent links + copy fallback */
-function ShareBar({ text, label = 'Share' }: { text: string; label?: string }) {
-  const [copied, setCopied] = useState(false)
-
-  const getUrl = () => (typeof window !== 'undefined' ? window.location.origin : 'https://officialwho.com')
-
-  const nativeShare = async () => {
-    const url = getUrl()
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try {
-        await navigator.share({ title: 'OfficialWho', text, url })
-        return
-      } catch {
-        /* user dismissed — fall through */
-      }
-    }
-    copyLink()
-  }
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(`${text} ${getUrl()}`)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      /* clipboard unavailable */
-    }
-  }
-
-  const openIntent = (intent: string) => {
-    const url = encodeURIComponent(getUrl())
-    const msg = encodeURIComponent(text)
-    const intents: Record<string, string> = {
-      x: `https://twitter.com/intent/tweet?text=${msg}&url=${url}`,
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${msg}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
-      whatsapp: `https://wa.me/?text=${msg}%20${url}`,
-    }
-    window.open(intents[intent], '_blank', 'noopener,width=640,height=540')
-  }
-
-  const btn = 'w-10 h-10 rounded-full border border-white/25 hover:border-courage-red hover:bg-courage-red/10 flex items-center justify-center transition-colors'
-
-  return (
-    <div className="flex items-center gap-2.5 flex-wrap">
-      <button onClick={nativeShare} className="bg-courage-red hover:bg-courage-red/85 text-white font-semibold px-5 py-2.5 rounded transition-colors inline-flex items-center gap-2 text-sm">
-        <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="6" cy="12" r="2.5" /><circle cx="17.5" cy="5.5" r="2.5" /><circle cx="17.5" cy="18.5" r="2.5" />
-          <path d="M8.3 10.8l7-4M8.3 13.2l7 4" />
-        </svg>
-        {label}
-      </button>
-      <button onClick={() => openIntent('x')} className={btn} aria-label="Share on X" title="Share on X">
-        <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
-      </button>
-      <button onClick={() => openIntent('facebook')} className={`${btn} font-black text-base`} aria-label="Share on Facebook" title="Share on Facebook">f</button>
-      <button onClick={() => openIntent('linkedin')} className={`${btn} font-black text-xs tracking-tight`} aria-label="Share on LinkedIn" title="Share on LinkedIn">in</button>
-      <button onClick={() => openIntent('whatsapp')} className={btn} aria-label="Share on WhatsApp" title="Share on WhatsApp">
-        <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 3.5a8.5 8.5 0 00-7.3 12.8L3.5 20.5l4.4-1.1A8.5 8.5 0 1012 3.5z" />
-          <path d="M9 8.8c.6 2.8 3.4 5.4 6 6l.9-1.7-2.3-1.2-.9.8c-.9-.5-1.7-1.3-2.2-2.2l.8-.9-1.2-2.3L9 8.8z" />
-        </svg>
-      </button>
-      <button onClick={copyLink} className={btn} aria-label="Copy link" title="Copy link">
-        {copied ? (
-          <svg viewBox="0 0 24 24" className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11" /></svg>
-        ) : (
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M9.5 14.5l5-5M8 12l-2.4 2.4a3.5 3.5 0 004.9 5L13 17M16 12l2.4-2.4a3.5 3.5 0 00-4.9-5L11 7" />
-          </svg>
-        )}
-      </button>
-      {copied && <span className="text-xs text-emerald-400 font-semibold">Copied!</span>}
-    </div>
-  )
-}
+import { ShareBar } from '@/components/ShareBar'
+import { LogoChip, SiteHeader } from '@/components/SiteHeader'
 
 const HONOR_DEGREES = [
   { n: 1, label: 'I am an honoree', brag: 'First degree. I AM the story.' },
@@ -140,15 +65,6 @@ function HonorNumber() {
         </div>
       </div>
     </section>
-  )
-}
-
-/* Brand mark — the real logo asset on a white chip, per the design comps */
-function LogoChip({ className }: { className?: string }) {
-  return (
-    <div className={`bg-white rounded-md p-1 flex items-center justify-center shrink-0 ${className ?? ''}`}>
-      <Image src="/brand/logo-mark.png" alt="OfficialWho" width={822} height={1262} className="h-full w-auto" priority />
-    </div>
   )
 }
 
@@ -230,40 +146,7 @@ function StrokeIcon({ children, className, strokeWidth = 1.5 }: { children: Reac
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#0a0f1a] text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0a0f1a]/90 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <LogoChip className="h-10 w-10 sm:h-11 sm:w-11" />
-            <div className="flex flex-col min-w-0">
-              <div className="font-sans font-black text-xl sm:text-2xl leading-none tracking-tight whitespace-nowrap">
-                Official<span className="text-courage-red">Who</span>
-              </div>
-              <div className="hidden sm:flex items-center gap-1.5 mt-1">
-                <span className="h-px w-3 bg-courage-red" />
-                <span className="text-[8px] tracking-[0.26em] text-slate-300 uppercase font-semibold whitespace-nowrap">
-                  Verified. Celebrated. Remembered.
-                </span>
-                <span className="h-px w-3 bg-courage-red" />
-              </div>
-            </div>
-          </div>
-
-          <nav className="hidden lg:flex items-center gap-7 text-sm text-slate-200">
-            {['Discover', 'Stories', 'Categories', 'Map', 'Resources', 'About'].map((item) => (
-              <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-            <StrokeIcon className="w-5 h-5 text-slate-300 hidden sm:block"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.8-3.8" /></StrokeIcon>
-            <a href="#" className="text-sm text-slate-200 hover:text-white hidden sm:block">Log In</a>
-            <a href="#" className="bg-courage-red hover:bg-courage-red/85 text-white text-sm font-semibold px-4 sm:px-5 py-2 rounded transition-colors whitespace-nowrap">
-              Sign Up
-            </a>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       {/* Hero — serif stack left, diagonal honoree panels right */}
       <section className="relative overflow-hidden">
@@ -373,8 +256,8 @@ export default function Home() {
       <section className="border-t border-white/10">
         <div className="container mx-auto px-4 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[38%_62%] gap-10 items-center max-w-5xl mx-auto">
-            <div className="relative rounded-xl overflow-hidden aspect-[3/4] border-2 border-heritage-gold/60 shadow-[0_0_60px_-15px_rgba(255,183,3,0.4)]">
-              <Image src="/brand/heroes/military-veterans.jpg" alt="Featured honoree" fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover" />
+            <Link href="/honoree/michael-chen" className="block relative rounded-xl overflow-hidden aspect-[3/4] border-2 border-heritage-gold/60 shadow-[0_0_60px_-15px_rgba(255,183,3,0.4)] hover:border-heritage-gold transition-colors">
+              <Image src="/brand/heroes/michael-chen-portrait.jpg" alt="Featured honoree" fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover object-top" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/30" />
               <div className="absolute top-4 left-4 bg-heritage-gold text-[#0a0f1a] text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1.5 rounded">
                 ★ Featured Honoree
@@ -389,7 +272,7 @@ export default function Home() {
                   <span className="text-xs font-bold text-heritage-gold tracking-wide">1,214 CO-SIGNS · LEGEND</span>
                 </div>
               </div>
-            </div>
+            </Link>
             <div className="space-y-6">
               <div className="text-[11px] tracking-[0.4em] text-heritage-gold uppercase font-bold">This Week on OfficialWho</div>
               <h2 className="font-serif font-black text-4xl md:text-5xl leading-tight">
@@ -426,12 +309,20 @@ export default function Home() {
                 </p>
               </div>
 
-              <p className="text-sm text-slate-400">
-                Know someone who belongs here?{' '}
-                <Link href="/generate" className="text-courage-red font-semibold hover:underline underline-offset-4">
-                  Submit your honoree →
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href="/honoree/michael-chen"
+                  className="inline-block border border-heritage-gold/50 text-heritage-gold hover:bg-heritage-gold hover:text-[#0a0f1a] font-semibold px-6 py-3 rounded transition-colors text-sm"
+                >
+                  View Michael&apos;s Full Profile →
                 </Link>
-              </p>
+                <p className="text-sm text-slate-400">
+                  Know someone who belongs here?{' '}
+                  <Link href="/generate" className="text-courage-red font-semibold hover:underline underline-offset-4">
+                    Submit your honoree →
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
