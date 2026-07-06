@@ -21,12 +21,19 @@ export default function Home() {
       <header className="border-b border-white/10 bg-legacy-navy/50 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-courage-red rounded-lg flex items-center justify-center font-bold text-white">
-              O
+            {/* Logo mark: red frame + silhouette */}
+            <div className="w-11 h-11 rounded-md border-[3px] border-courage-red bg-legacy-navy flex items-end justify-center overflow-hidden shrink-0">
+              <svg viewBox="0 0 24 24" className="w-8 h-8 text-white fill-current translate-y-1" aria-hidden="true">
+                <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9c0-3.9 3.1-7 7-7s7 3.1 7 7H5z" />
+              </svg>
             </div>
             <div className="flex flex-col">
-              <div className="font-display text-xl text-courage-red font-bold">OfficialWho</div>
-              <div className="text-xs text-slate-400">Verified • Celebrated • Remembered</div>
+              <div className="font-display text-2xl leading-none text-white tracking-wide">
+                OFFICIAL<span className="text-courage-red">WHO</span>
+              </div>
+              <div className="text-[10px] tracking-[0.25em] text-heritage-gold uppercase">
+                Verified • Celebrated • Remembered
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -47,29 +54,54 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="space-y-4">
-            <h1 className="font-display text-6xl md:text-7xl font-bold text-white tracking-tight">
-              Celebrate <span className="text-courage-red">Extraordinary</span> Lives
-            </h1>
-            <p className="text-xl text-slate-300">
-              OfficialWho is not another social network. It's a digital hall of honor for verified alumni,
-              professionals, and communities.
-            </p>
-            <p className="text-lg font-semibold text-courage-red italic">
-              Verified. Celebrated. Remembered.
-            </p>
+      <section className="container mx-auto px-4 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+          <div className="space-y-8 text-center lg:text-left">
+            <div className="space-y-5">
+              <div className="inline-block px-4 py-1.5 rounded-full border border-heritage-gold/40 text-heritage-gold text-xs font-semibold tracking-[0.2em] uppercase">
+                A Digital Hall of Honor
+              </div>
+              <h1 className="font-display text-6xl md:text-7xl text-white leading-[0.95]">
+                Celebrate<br />
+                <span className="text-courage-red">Extraordinary</span><br />
+                Lives
+              </h1>
+              <p className="text-xl text-slate-300 max-w-xl mx-auto lg:mx-0">
+                Not another social network. OfficialWho is where verified alumni, first responders,
+                veterans, and communities are honored — permanently.
+              </p>
+              <p className="font-display text-2xl tracking-[0.15em] text-heritage-gold uppercase">
+                Verified. Celebrated. Remembered.
+              </p>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+              <Link href="/generate" className="brand-button text-lg px-8 py-4">
+                Create Your Poster
+              </Link>
+              <Link href="/gallery" className="brand-button-secondary text-lg px-8 py-4">
+                Explore Gallery
+              </Link>
+            </div>
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Link href="/generate" className="brand-button text-lg px-8 py-4">
-              Create Your Poster
-            </Link>
-            <Link href="/gallery" className="brand-button-secondary text-lg px-8 py-4">
-              Explore Gallery
-            </Link>
+          {/* Poster mockup: red frame + silhouette, echoing the logo */}
+          <div className="relative mx-auto w-72 md:w-80">
+            <div className="absolute -inset-6 bg-courage-red/15 blur-3xl rounded-full" aria-hidden="true" />
+            <div className="relative border-[6px] border-courage-red rounded-lg bg-gradient-to-b from-slate-800 to-legacy-navy p-5 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="aspect-[4/5] rounded bg-gradient-to-b from-steel-blue/25 via-transparent to-black/40 flex items-end justify-center overflow-hidden">
+                <svg viewBox="0 0 24 24" className="w-44 h-44 text-white/90 fill-current translate-y-6" aria-hidden="true">
+                  <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9c0-3.9 3.1-7 7-7s7 3.1 7 7H5z" />
+                </svg>
+              </div>
+              <div className="mt-4 text-center border-t border-heritage-gold/30 pt-3">
+                <div className="font-display text-3xl text-white uppercase tracking-wide">Your Name</div>
+                <div className="text-[11px] tracking-[0.35em] text-heritage-gold uppercase mt-1">
+                  Class of 2026 • Verified
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

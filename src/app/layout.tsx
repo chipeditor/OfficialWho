@@ -1,5 +1,17 @@
 import type { Metadata } from 'next'
+import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
+
+const bebasNeue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-display',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+})
 
 export const metadata: Metadata = {
   title: 'OfficialWho — Verified. Celebrated. Remembered.',
@@ -16,11 +28,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-          {children}
-        </div>
+    <html lang="en" suppressHydrationWarning className={`${bebasNeue.variable} ${inter.variable}`}>
+      <body className="antialiased font-sans">
+        {children}
       </body>
     </html>
   )

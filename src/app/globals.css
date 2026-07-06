@@ -53,16 +53,9 @@
     @apply bg-background text-foreground;
   }
 
-  h1 {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
-  }
-
+  h1,
   h2 {
-    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
-  }
-
-  h3 {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+    @apply font-display tracking-wide;
   }
 }
 
@@ -76,19 +69,19 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-red-500 to-emerald-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-courage-red to-heritage-gold bg-clip-text text-transparent;
   }
 
   .brand-button {
-    @apply px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors;
+    @apply px-6 py-3 bg-courage-red hover:bg-courage-red/85 text-white font-semibold rounded-lg transition-all shadow-lg shadow-courage-red/25 hover:shadow-courage-red/40 hover:-translate-y-0.5;
   }
 
   .brand-button-secondary {
-    @apply px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg transition-colors;
+    @apply px-6 py-3 bg-transparent border-2 border-white/25 hover:border-heritage-gold hover:text-heritage-gold text-white font-semibold rounded-lg transition-colors;
   }
 
   .brand-heading {
-    @apply font-display text-legacy-navy uppercase tracking-wide;
+    @apply font-display uppercase tracking-wide;
   }
 
   .category-badge {
