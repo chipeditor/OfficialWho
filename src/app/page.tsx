@@ -1,20 +1,22 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { mockCategories, mockPosterStyles, mockUserProfiles } from '@/lib/mock-data'
 
-/* Brand mark — the open red frame from the logo: left + top + right strokes,
-   angled ribbon-cut ends, open bottom. Geometric and exact.
-   The silhouette from the primary logo ships as a real asset (public/brand/). */
+/* Brand mark — the real logo asset (red frame + profile bust).
+   Soft light shadow keeps the navy silhouette readable on dark surfaces. */
 function LogoMark({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 100 100" className={`shrink-0 ${className ?? ''}`} aria-hidden="true">
-      <path
-        d="M8 8 L92 8 L92 64 L76 56 L76 24 L24 24 L24 70 L8 78 Z"
-        className="fill-courage-red"
-      />
-    </svg>
+    <Image
+      src="/brand/logo-mark.png"
+      alt="OfficialWho"
+      width={822}
+      height={1262}
+      className={`shrink-0 w-auto [filter:drop-shadow(0_0_5px_rgba(255,255,255,0.28))] ${className ?? ''}`}
+      priority
+    />
   )
 }
 
@@ -45,7 +47,7 @@ export default function Home() {
       <header className="border-b border-heritage-gold/15 bg-legacy-navy/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LogoMark className="w-12 h-12" />
+            <LogoMark className="h-12" />
             <div className="flex flex-col">
               <div className="font-sans font-black text-[26px] leading-none tracking-tight text-white">
                 Official<span className="text-courage-red">Who</span>
@@ -118,16 +120,8 @@ export default function Home() {
             <div className="absolute -inset-10 bg-heritage-gold/10 blur-3xl rounded-full" aria-hidden="true" />
             <div className="relative border-[5px] border-courage-red bg-[#0a1523] p-1.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] rotate-1 hover:rotate-0 transition-transform duration-500">
               <div className="border border-heritage-gold/50 p-4">
-                <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_30%,rgba(50,72,168,0.35),rgba(10,21,35,0.9))] flex flex-col items-center justify-between overflow-hidden py-5">
-                  <div className="flex items-center gap-1.5 opacity-80">
-                    <LogoMark className="w-4 h-4" />
-                    <span className="font-sans font-black text-[10px] tracking-tight text-white">
-                      Official<span className="text-courage-red">Who</span>
-                    </span>
-                  </div>
-                  <div className="text-[10px] tracking-[0.4em] text-white/40 uppercase">
-                    Your Portrait Here
-                  </div>
+                <div className="aspect-[4/5] bg-[radial-gradient(ellipse_at_50%_35%,rgba(50,72,168,0.3),rgba(10,21,35,0.9))] flex items-center justify-center overflow-hidden">
+                  <LogoMark className="h-56" />
                 </div>
                 <div className="mt-5 text-center pb-1">
                   <div className="flex items-center justify-center gap-3 text-heritage-gold mb-2.5">
@@ -332,7 +326,7 @@ export default function Home() {
       {/* CTA */}
       <section className="container mx-auto px-4 py-28">
         <div className="max-w-3xl mx-auto text-center space-y-8">
-          <LogoMark className="w-16 h-16 mx-auto" />
+          <LogoMark className="h-24 mx-auto" />
           <h2 className="font-display text-5xl md:text-6xl text-white uppercase tracking-wide leading-tight">
             Ready to Take<br />Your Place?
           </h2>
@@ -351,7 +345,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
             <div className="space-y-4">
               <div className="flex items-center gap-2.5">
-                <LogoMark className="w-10 h-10" />
+                <LogoMark className="h-10" />
                 <span className="font-sans font-black text-xl tracking-tight text-white">
                   Official<span className="text-courage-red">Who</span>
                 </span>
